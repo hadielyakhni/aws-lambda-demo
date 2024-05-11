@@ -1,6 +1,9 @@
 const { S3Client, PutObjectCommand, GetObjectCommand } = require("@aws-sdk/client-s3");
 const sharp = require('sharp');
 
+// change this to match your bucket name
+const RESULT_BUCKET = 'ulb-cc-grp11-result';
+
 const s3Client = new S3Client();
 
 const compressor = async (event) => {
@@ -14,7 +17,6 @@ const compressor = async (event) => {
         const compressedImage = await sharp(await Body.transformToByteArray())
             .resize(800).jpeg({ quality: 80 }).toBuffer();
 
-        const RESULT_BUCKET = 'ulb-cc-grp11-result';
         const compressedImgKey = `${key.split('.')[0]}_compressed.jpg`;
 
         await s3Client.send(new PutObjectCommand({ 

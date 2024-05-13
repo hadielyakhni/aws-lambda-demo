@@ -2,7 +2,6 @@ import json
 import random
 
 def lambda_handler(event, context):
-    # TODO implement
     json_file = 'Thoughts.json'
     with open(json_file, 'r') as f:
         quotes = json.load(f)
